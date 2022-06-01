@@ -10,6 +10,7 @@ const helmet = require('helmet');
 const {INVENTORY} = require('./__mock__/stock.mock');
 const inventoryController = require('./controllers/Inventory.controller');
 const userController = require('./controllers/User.controller');
+const {verify} = require('./middlewares/auth.middleware');
 
 // Config
 
@@ -38,8 +39,8 @@ fruitRouter.get('/stock', async (request, response) => {
     }
 });
 
-fruitRouter.post('/transfer', (request, response) => {
-    const {from, to, quantity} = request.body;
+fruitRouter.post('/transfer', verify, (request, response) => {
+    // const {from, to, quantity} = request.body;
     response.json(INVENTORY);
 });
 
