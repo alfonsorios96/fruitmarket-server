@@ -39,9 +39,15 @@ fruitRouter.get('/stock', async (request, response) => {
     }
 });
 
-fruitRouter.post('/transfer', verify, (request, response) => {
-    // const {from, to, quantity} = request.body;
-    response.json(INVENTORY);
+fruitRouter.post('/transfer/:id', verify, async (request, response) => {
+    const {from, to, quantity} = request.body;
+    const {id} = request.params;
+    const data = await inventoryController.transfer(id, from, to, quantity);
+    if(data.error) {
+        response.status(500).json(data.error);
+    } else {
+        response.json(data);
+    }
 });
 
 app.use('/fruit', fruitRouter);
