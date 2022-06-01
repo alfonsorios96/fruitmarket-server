@@ -1,3 +1,5 @@
 .env
 .idea/
 node_modules/
+middlewares/private.key
+middlewares/private.key.pub
