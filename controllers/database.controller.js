@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 let URI = '';
 
 if (process.env.ENV === 'PRODUCTION') {
-    URI = 'mongodb+srv://' + process.env.db_user + ':' + process.env.db_password + '@' + process.env.db_host + '/' + process.env.db_name + '?authSource=admin&' + process.env.db_query;
+    URI = process.env.DB_URI;
 } else {
     URI = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 }
