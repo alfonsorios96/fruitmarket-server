@@ -18,7 +18,7 @@ const actions = {
 
             if (!user) {
                 response.error = {
-                    message: 'El usuario es incorrecto'
+                    message: 'The username does not exist'
                 };
                 return response;
             }
@@ -26,7 +26,9 @@ const actions = {
             const bcryptValid = await bcrypt.compareSync(password, user.password);
 
             if (!bcryptValid) {
-                response.error = 'La contraseña no es válida';
+                response.error = {
+                    message: 'The password is invalid. Try again'
+                };
                 return response;
             }
 

@@ -3,6 +3,8 @@ const model_ = require('../models/Inventory.model');
 const FruitModel = require('../models/Fruit.model');
 const StoreModel = require('../models/Store.model');
 
+const {mappingStock} = require('./utils.controller');
+
 const populate = [
     {
         path: 'fruit',
@@ -28,8 +30,11 @@ const actions = {
             if (!stock) {
                 response = {};
             }
-            response.data = stock;
-            response.count = stock.length;
+            response.data = mappingStock(stock);
+            response.fruits = response.data.reduce((sumTotal, store) => {
+                return sumTotal + store.fruits.reduce((sum, fruit) => sum + fruit.stock, 0);
+            }, 0);
+            response.count = response.data.length;
         } catch (error) {
             response.error = error;
         }
